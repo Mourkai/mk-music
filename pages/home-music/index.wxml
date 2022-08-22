@@ -1,0 +1,18 @@
+<view>
+    <van-search 
+        background="#fafafa" 
+        disabled bind:click-input="handleInputClick" 
+        shape="round"
+        placeholder="搜索您喜欢的歌曲" 
+    />
+    <swiper class="swiper" style="height:{{swiperHeight}}px" indicator-dots autoplay circular>
+        <block wx:for="{{banner}}" wx:key="bannerId">
+          <swiper-item class="swiper-item">
+             <image class="swiper-image" src="{{item.pic}}" bindload="handleImageLoaded" mode="widthFix"></image>
+          </swiper-item>
+        </block>
+    </swiper>
+    <view class="recommend-song">
+        <area-header title="推荐歌曲"></area-header>
+    </view>
+</view>

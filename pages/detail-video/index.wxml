@@ -1,0 +1,9 @@
+<video 
+class="video" 
+autoplay
+loop
+referrer-policy="origin"
+src="{{mvUrlInfo.url}}" />
+<block wx:for="{{100}}">
+    <view>{{item}}</view>
+</block>
