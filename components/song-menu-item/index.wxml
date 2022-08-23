@@ -1,0 +1,10 @@
+<!--components/song-menu-item/index.wxml-->
+<view class="item">
+    <view class="top">
+        <image class="image" src="{{data.coverImgUrl}}"></image>
+        <view class="play-counter">{{data.playcount}}</view>
+    </view>
+    <view class="bottom">
+        {{data.name}}
+    </view>
+</view>

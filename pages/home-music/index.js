@@ -1,13 +1,17 @@
 // pages/home-music/index.js
-import {getBanner} from '../../service/music.js'
+import {getBanner,getSongMenu} from '../../service/music.js'
 import {domHeight} from '../../utils/dom-height.js'
+import { rankingStore } from '../../store/index'
+
 Page({
     /**
      * 页面的初始数据
      */
     data: {
         swiperHeight:0,
-        banner:[]
+        banner:[],
+        hotSongMenu:[],
+        recommendSongs:[]
     },
 
     /**
@@ -15,11 +19,25 @@ Page({
      */
     onLoad(options) {
         this.getPageData()
+        //store数据
+        rankingStore.dispatch("getRankingDataAction")
+        rankingStore.onState("hotRanking",(res)=>{
+            if(!res.tracks) return;
+            const recommendSongs = res.tracks.slice(0,6)
+            this.setData({
+                recommendSongs
+            })
+        })
     },
     getPageData(){
         getBanner().then(res=>{
             this.setData({
                 banner:res.banners
+            })
+        })
+        getSongMenu().then(res=>{
+            this.setData({
+                hotSongMenu:res.playlists
             })
         })
     },
