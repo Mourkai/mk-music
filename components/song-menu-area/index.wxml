@@ -1,5 +1,5 @@
 <!--components/song-menu-area/index.wxml-->
-<area-header title="推荐歌单" />
+<area-header title="{{title}}" />
 
 <scroll-view scroll-x class="menu-list">
     <block wx:for="{{songMenu}}" wx:key="id">

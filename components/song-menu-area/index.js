@@ -8,6 +8,10 @@ Component({
         songMenu:{
             type:Array,
             value:[]
+        },
+        title:{
+            type:String,
+            value:"歌单"
         }
     },
 

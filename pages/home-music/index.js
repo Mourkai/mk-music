@@ -11,7 +11,9 @@ Page({
         swiperHeight:0,
         banner:[],
         hotSongMenu:[],
-        recommendSongs:[]
+        recommendSongMenu:[],
+        recommendSongs:[],
+        rankings:[]
     },
 
     /**
@@ -28,6 +30,9 @@ Page({
                 recommendSongs
             })
         })
+        rankingStore.onState("newRanking",this.getRankingDataHandle)
+        rankingStore.onState("originRanking",this.getRankingDataHandle)
+        rankingStore.onState("topRanking",this.getRankingDataHandle)
     },
     getPageData(){
         getBanner().then(res=>{
@@ -38,6 +43,11 @@ Page({
         getSongMenu().then(res=>{
             this.setData({
                 hotSongMenu:res.playlists
+            })
+        })
+        getSongMenu('华语').then(res=>{
+            this.setData({
+                recommendSongMenu:res.playlists
             })
         })
     },
@@ -51,6 +61,19 @@ Page({
     handleInputClick(){
         wx.navigateTo({
           url: '/pages/detail-search/index'
+        })
+    },
+    getRankingDataHandle(res){
+        if(!res.tracks) return;
+        const name = res.name;
+        const coverImgUrl = res.coverImgUrl;
+        const songList = res.tracks.slice(0,3)
+        const playCount = res.playCount;
+        const rankingObj = {name,coverImgUrl,songList,playCount}
+        const newRankings = [...this.data.rankings]
+        newRankings.push(rankingObj)
+        this.setData({
+            rankings:newRankings
         })
     },
     /**
