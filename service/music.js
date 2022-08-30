@@ -13,3 +13,7 @@ export function getSongMenu(cat="全部",limit=6,offset=0){
         cat,limit,offset
     })
 }
+
+export function getSongDetail(id){
+    return mkRequest.get('/playlist/detail/dynmaic',{id})
+}

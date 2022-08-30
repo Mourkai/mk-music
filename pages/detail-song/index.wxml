@@ -1,0 +1,11 @@
+<block wx:if="{{type === 'menu'}}">
+    <song-detail-header songInfo="{{songInfo}}" />
+</block>
+<block wx:else>
+    <area-header title="{{songInfo.name}}" showRight="{{false}}"></area-header>
+</block>
+<view class="song-list">
+  <block wx:for="{{songInfo.tracks}}" wx:key="id">
+    <song-item-v2 data="{{item}}" index="{{index+1}}"></song-item-v2>
+  </block>
+</view>

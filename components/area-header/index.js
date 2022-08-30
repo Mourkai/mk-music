@@ -8,6 +8,10 @@ Component({
             type:String,
             value:"默认标题"
         },
+        showRight:{
+            type:Boolean,
+            value:true
+        },
         rightText:{
             type:String,
             value:"更多"
@@ -25,6 +29,8 @@ Component({
      * 组件的方法列表
      */
     methods: {
-
+        clickRight(){
+            this.triggerEvent("click")
+        }
     }
 })

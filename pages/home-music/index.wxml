@@ -1,5 +1,5 @@
 <view>
-    <van-search 
+    <van-search
         background="#fafafa" 
         disabled bind:click-input="handleInputClick" 
         shape="round"
@@ -14,9 +14,9 @@
     </swiper>
 
     <view class="recommend-song" wx:if="{{recommendSongs.length > 0}}">
-        <area-header title="推荐歌曲"></area-header>
+        <area-header title="推荐歌曲" bind:click="handleMoreClick"></area-header>
         <block wx:for="{{recommendSongs}}" wx:key="id">
-            <song-item-v1 item="{{item}}" />    
+            <song-item-v1 item="{{item}}" />
         </block>
     </view>
     <song-menu-area title="热门歌单" wx:if="{{hotSongMenu.length > 0}}" songMenu="{{hotSongMenu}}" />
@@ -24,8 +24,8 @@
     <view class="ranking">
         <area-header title="巅峰榜" showRight="{{false}}"></area-header>
         <view class="ranking-list">
-            <block wx:for="{{rankings}}" wx:key="name">
-                <ranking-area-item data="{{item}}" />
+            <block wx:for="{{rankings}}" wx:key="id">
+                <ranking-area-item bindtap="handleMoreClick" data-id="{{item.id}}" data="{{item}}" />
             </block>
         </view>
     </view>

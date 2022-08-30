@@ -1,7 +1,7 @@
 // pages/home-music/index.js
 import {getBanner,getSongMenu} from '../../service/music.js'
 import {domHeight} from '../../utils/dom-height.js'
-import { rankingStore } from '../../store/index'
+import { rankingStore,rankingMap} from '../../store/index'
 
 Page({
     /**
@@ -41,11 +41,13 @@ Page({
             })
         })
         getSongMenu().then(res=>{
+            console.log(res);
             this.setData({
                 hotSongMenu:res.playlists
             })
         })
         getSongMenu('华语').then(res=>{
+            console.log(res);
             this.setData({
                 recommendSongMenu:res.playlists
             })
@@ -64,64 +66,27 @@ Page({
         })
     },
     getRankingDataHandle(res){
-        if(!res.tracks) return;
+        if(Object.keys(res).length === 0) return;
         const name = res.name;
         const coverImgUrl = res.coverImgUrl;
         const songList = res.tracks.slice(0,3)
         const playCount = res.playCount;
-        const rankingObj = {name,coverImgUrl,songList,playCount}
+        const id = res.id;
+        const rankingObj = {name,coverImgUrl,songList,playCount,id}
         const newRankings = [...this.data.rankings]
         newRankings.push(rankingObj)
         this.setData({
             rankings:newRankings
         })
     },
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {
-
+    onUnload(){
+        console.log("onUnloadonUnloadonUnload");
     },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow() {
-        console.log(getApp().globalData.userInfo);
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {
-
+    handleMoreClick(re){
+        const id = re.currentTarget.dataset.id;
+        const rankingName = rankingMap[id]
+        wx.navigateTo({
+          url: '/pages/detail-song/index?ranking='+rankingName+'&type=ranking',
+        })
     }
 })

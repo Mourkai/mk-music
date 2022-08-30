@@ -4,6 +4,8 @@ import {
 import {
     getRankings
 } from '../service/music'
+const rankingMap = {3779629:'newRanking',3778678:'hotRanking',2884035:'originRanking',19723756:'topRanking'}
+const idArr = [3779629,3778678,2884035,19723756]
 const rankingStore = new HYEventStore({
     state: {
         newRanking: {}, //新歌
@@ -13,23 +15,9 @@ const rankingStore = new HYEventStore({
     },
     actions: {
         getRankingDataAction(ctx) {
-            const idArr = [3779629, 3778678, 2884035, 19723756]
-            idArr.forEach((item, index) => {
+            idArr.forEach(item=>{
                 getRankings(item).then(res => {
-                    switch (index) {
-                        case 0:
-                            ctx.newRanking = res.playlist
-                            break;
-                        case 1:
-                            ctx.hotRanking = res.playlist
-                            break;
-                        case 2:
-                            ctx.originRanking = res.playlist
-                            break;
-                        case 3:
-                            ctx.topRanking = res.playlist
-                            break;
-                    }
+                    ctx[rankingMap[item]] = res.playlist
                 })
             })
         }
@@ -37,5 +25,6 @@ const rankingStore = new HYEventStore({
 })
 
 export {
-    rankingStore
+    rankingStore,
+    rankingMap
 }

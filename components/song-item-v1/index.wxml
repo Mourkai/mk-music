@@ -1,4 +1,4 @@
-<view class="item">
+<view class="item" bindtap="handleSongClick">
     <image class="image" src="{{item.al.picUrl}}"></image>
     <view class="content">
         <view class="name">{{item.name}}</view>
