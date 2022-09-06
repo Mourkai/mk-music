@@ -1,20 +1,45 @@
 // pages/music-player/index.js
+import {getSongDetail} from '../../service/player'
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-
+        song:{},
+        currentPage:0,
+        swiperHeight:0
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-
+        this.getPageData(options)
+        const globalData = getApp().globalData
+        const statusBarHeight = globalData.statusBarHeight
+        const screenHeight = globalData.screenHeight
+        const swiperHeight = screenHeight - statusBarHeight - 44;
+        this.setData({
+            swiperHeight
+        })
+        const audioContext = wx.createInnerAudioContext()
+        audioContext.src = `https://music.163.com/song/media/outer/url?id=475479888.mp3`
+        //audioContext.play()
     },
-
+    handleSwiperChange(e){
+        const currentPage = e.detail.current
+        this.setData({
+            currentPage
+        })
+    },
+    getPageData({id}){
+        getSongDetail(id).then(res=>{
+            this.setData({
+                song:res.songs[0]
+            })
+        })
+    },
     /**
      * 生命周期函数--监听页面初次渲染完成
      */

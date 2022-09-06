@@ -46,7 +46,7 @@
                 {
                     "name": "播放页",
                     "pathName": "pages/music-player/index",
-                    "query": "id=1807799505",
+                    "query": "id= 475479888",
                     "launchMode": "default",
                     "scene": null
                 }
