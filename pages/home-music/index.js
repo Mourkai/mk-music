@@ -41,13 +41,11 @@ Page({
             })
         })
         getSongMenu().then(res=>{
-            console.log(res);
             this.setData({
                 hotSongMenu:res.playlists
             })
         })
         getSongMenu('华语').then(res=>{
-            console.log(res);
             this.setData({
                 recommendSongMenu:res.playlists
             })
