@@ -9,3 +9,64 @@ page{
 .swiper-item image{
     width: 100%;
 }
+.play-bar{
+    bottom: 0;
+    left: 0;
+    display: flex;
+    background-color: #fafafa;
+    justify-content: space-between;
+    height: 44px;
+    position: fixed;
+    width: 100vw;
+    padding: 0 10px;
+    box-shadow: 0 -1px 5px 0px #ccc;
+    box-sizing: border-box;
+}
+.cover-img{
+    position: relative;
+    top: -10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.opartion{
+    display: flex;
+    align-items: center;
+}
+.opartion image{
+    flex: 1;
+    width: 30px;
+    margin: 0 3px;
+}
+.play-bar .author{
+    flex: 1;
+    display: flex;
+}
+.play-bar .author .song-title{
+    display: flex;
+    padding-left:8px;
+    line-height: 44px;
+}
+.play-bar .author .song-title .title{
+    font-size: 15px;
+    margin-right: 10px;
+}
+.play-bar .author .song-title .desc{
+    font-size: 13px;
+    color:#999;
+}
+@keyframes cover{
+    from{
+        transform: rotate(0deg);
+    }
+
+    to{
+        transform: rotate(360deg);
+    }
+}
+.cover-anim{
+    animation: cover 10s linear infinite;
+}
+.play-bar-placeholder{
+    height:50px;
+}

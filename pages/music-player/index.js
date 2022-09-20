@@ -52,7 +52,7 @@ Page({
     handleSliderChange(e){
         const value = e.detail.value
         const currentTime = this.data.durationTime * value / 100
-        audioContext.pause()
+        //audioContext.pause()
         audioContext.seek(currentTime/1000)
         this.setData({
             sliderValue:value
@@ -101,5 +101,11 @@ Page({
                 this.setData({isPlaying})
             }
         })
+    },
+    handlePrevBtnClick(){
+        playerStore.dispatch('changeNewMusic',false)
+    },
+    handleNextBtnClick(){
+        playerStore.dispatch('changeNewMusic')
     }
 })

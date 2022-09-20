@@ -1,7 +1,7 @@
 // pages/home-music/index.js
 import {getBanner,getSongMenu} from '../../service/music.js'
 import {domHeight} from '../../utils/dom-height.js'
-import { rankingStore,rankingMap} from '../../store/index'
+import { rankingStore,rankingMap,playerStore} from '../../store/index'
 
 Page({
     /**
@@ -10,6 +10,8 @@ Page({
     data: {
         swiperHeight:0,
         banner:[],
+        song:{},
+        isPlaying:false,
         hotSongMenu:[],
         recommendSongMenu:[],
         recommendSongs:[],
@@ -33,6 +35,12 @@ Page({
         rankingStore.onState("newRanking",this.getRankingDataHandle)
         rankingStore.onState("originRanking",this.getRankingDataHandle)
         rankingStore.onState("topRanking",this.getRankingDataHandle)
+
+
+        playerStore.onStates(["song","isPlaying"],({song,isPlaying})=>{
+            if(song) this.setData({song})
+            if(isPlaying !== undefined) this.setData({isPlaying})
+        })
     },
     getPageData(){
         getBanner().then(res=>{
@@ -85,6 +93,19 @@ Page({
         const rankingName = rankingMap[id]
         wx.navigateTo({
           url: '/pages/detail-song/index?ranking='+rankingName+'&type=ranking',
+        })
+    },
+    handleSongClick(e){
+        const index = e.currentTarget.dataset.index
+        playerStore.setState('playListIndex',index)
+        playerStore.setState('playListSongs',this.data.recommendSongs)
+    },
+    handlePlayClick(){
+        playerStore.dispatch('changeMusicPlayStatus')
+    },
+    toMusic(){
+        wx.navigateTo({
+          url: '/pages/music-player/index',
         })
     }
 })
