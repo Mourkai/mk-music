@@ -1,4 +1,5 @@
 // pages/detail-search/index.js
+//first commit
 import {
     getSearch,
     getSearchSuggest,
